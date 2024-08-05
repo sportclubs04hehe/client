@@ -1,0 +1,62 @@
+<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-1">Dating App</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        
+        @if (accountService.currentUser()) {
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
+            <li class="nav-item">
+              <a class="nav-link">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">Người yêu thích</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">Tin nhắn</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" (click)="logout()">Đăng xuất</a>
+            </li>
+          </ul>
+
+          <div class="btn-group" dropdown>
+            <button id="button-basic" dropdownToggle type="button" class="btn btn-light dropdown-toggle"
+                    aria-controls="dropdown-basic">
+              Xin chào <span class="caret"></span>
+            </button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-end"
+                role="menu" aria-labelledby="button-basic">
+              <li role="menuitem"><a class="dropdown-item">Sửa hồ sơ</a></li>
+              <li class="divider dropdown-divider"></li>
+              <li role="menuitem"><a class="dropdown-item" (click)="logout()">Đăng xuất</a></li>
+            </ul>
+          </div>          
+        }
+
+        @if(!accountService.currentUser())
+        {
+          <form class="d-flex ms-auto" #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
+            <input 
+            class="form-control me-2" 
+            [(ngModel)]="model.username"
+            name="username"
+            placeholder="Tên đăng nhập" 
+            autofocus
+            >
+            <input 
+            type="password" 
+            class="form-control me-2" 
+            [(ngModel)]="model.password"
+            name="password"
+            placeholder="Mật khẩu"
+            >
+            <button class="btn btn-outline-success" type="submit">Đăng nhập</button>
+          </form>
+        }
+
+      </div>
+    </div>
+  </nav>
