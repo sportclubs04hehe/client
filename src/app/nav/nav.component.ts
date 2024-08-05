@@ -19,7 +19,7 @@ export class NavComponent implements OnInit{
   model: any = {};
 
   ngOnInit(): void {
-    console.log('Tôi chạy sau và xét currentUser= ', this.accountService.currentUser());
+    
   }
 
   login() {

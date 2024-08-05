@@ -11,23 +11,25 @@ import { AccountService } from './services/account.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   http = inject(HttpClient);
   private accountService = inject(AccountService);
   users: any;
-  
+
   ngOnInit(): void {
     this.getAllUsers();
     this.setCurrentUser();
   }
 
   setCurrentUser() {
-    const userString = localStorage.getItem('user');
-    if(!userString) return;
-    const currentUser = JSON.parse(userString);
-    this.accountService.currentUser.set(currentUser);
-    console.log('Tôi xét currentUser', currentUser);
-    
+    if (typeof window !== 'undefined') {
+      const userString = localStorage.getItem('user');
+
+      if (!userString) return;
+      const currentUser = JSON.parse(userString);
+      this.accountService.currentUser.set(currentUser);
+    }
+
   }
 
   getAllUsers() {
@@ -41,4 +43,5 @@ export class AppComponent implements OnInit{
       },
     })
   }
+
 }

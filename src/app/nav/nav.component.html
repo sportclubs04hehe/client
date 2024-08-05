@@ -22,6 +22,9 @@
             </li>
           </ul>
 
+        }
+
+        @if(accountService.currentUser()) {
           <div class="btn-group" dropdown>
             <button id="button-basic" dropdownToggle type="button" class="btn btn-light dropdown-toggle"
                     aria-controls="dropdown-basic">
@@ -33,7 +36,7 @@
               <li class="divider dropdown-divider"></li>
               <li role="menuitem"><a class="dropdown-item" (click)="logout()">Đăng xuất</a></li>
             </ul>
-          </div>          
+          </div>     
         }
 
         @if(!accountService.currentUser())

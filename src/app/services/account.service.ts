@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { Inject, inject, Injectable, signal } from '@angular/core';
 import { User } from '../models/user';
 import { map } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,11 @@ export class AccountService {
 
   login(model: any) {
     return this.http.post<User>(`${this.baseUrl}/Account/Login`, model).pipe(
-      map((user) => {
+      map(user => {
         if(user) {
-          localStorage.setItem('user', JSON.stringify(user));
+          if(typeof window !== 'undefined') {
+            localStorage.setItem('user', JSON.stringify(user));
+          }
         }
 
         this.currentUser.set(user);
@@ -26,7 +29,9 @@ export class AccountService {
   }
 
   logout() {
-    localStorage.removeItem('user');  
+    if(typeof window !== 'undefined') {
+      localStorage.removeItem('user');  
+    }
     this.currentUser.set(null);
   }
 }
